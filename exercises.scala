@@ -11,7 +11,7 @@ object ExercisesModule {
   def isSorted[A] (as: Array[A], ordered: (A, A) => Boolean): Boolean = {
     if (as.length < 2) return true // sorted by definition
     def go(index: Int, sorted: Boolean): Boolean = {
-      if (sorted == false || index >= as.length) sorted
+      if (!sorted || index >= as.length - 1) sorted
       else go(index + 1, ordered(as(index), as(index + 1)))
     }
     go(0, sorted = true)
@@ -21,7 +21,13 @@ object ExercisesModule {
     0.to(end = 10) foreach (i => println("%s: %s".format(i, fib(i))))
 
     // 2.2
-    val a: Array[Int] = Array(1, 3, 2)
-    println(isSorted(a, (x, y) => x < y : Boolean))
+    for {
+      i <- Array(
+        Array(1),
+        Array(1,2),
+        Array(1,2,3),
+        Array(3,2,1)
+      )
+    } println(isSorted(i, (x: Int, y: Int) => x <= y))
   }
 }
